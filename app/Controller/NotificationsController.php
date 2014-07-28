@@ -43,7 +43,12 @@ public $components = array('RequestHandler');
 	{
 		$current_developer = $this->Developer->
 					findById($this->Session->read('Developer.id'));
+		echo "\n###############################################\n";
+		echo "\nDev-Id:";
+		var_dump($this->Session->read('Developer.id'));
+		echo "\n###############################################\n";
 		$current_developer = Sanitize::clean($current_developer);
+
 		$params = array('conditions' => array('developer_id' => $current_developer['Developer']['id']));
 
 		$pagedParams = $params;

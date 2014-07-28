@@ -73,4 +73,35 @@ class NotificationsControllerTest extends ControllerTestCase {
 
 		$this->assertEquals($actual, $expected);
 	}
+
+public function testDataTables() {
+		$this->testAction('/notification/data_tables', array(
+			'data' => array(
+				'sEcho' => 1,
+			),
+			'method' => 'get',
+			'return' => 'view'
+		));
+		$result = json_decode($this->contents, true);
+		
+		$expected = array(
+			'iTotalRecords' => 3,
+			'iTotalDisplayRecords' => 3,
+			'sEcho' => 1,
+			'aaData' => array(
+				array("<input type='checkbox' name='notifs[]' value='1'/>", "<a href='/reports/view/1'>1</a>", "error2", "Lorem ipsum dolor sit amet", "4.0", "New", "js", "2013-08-28 21:47:17"),
+				array("<input type='checkbox' name='notifs[]' value='2'/>", "<a href='/reports/view/2'>2</a>", 'error2', 'Lorem ipsum dolor sit amet', '4.0', 'New', 'js', "2013-08-28 21:47:17"),
+				array("<input type='checkbox' name='notifs[]' value='3'/>", "<a href='/reports/view/4'>4</a>", 'error1', 'Lorem ipsum dolor sit amet', '3.8', 'New', 'js', "2013-08-28 21:47:17")
+			)
+		);
+		
+		echo "\n###############################\n";
+		echo "\nResult:";
+		var_dump($result);
+		echo "\n###############################\n";
+
+		$this->assertEquals($expected, $result);
+	}
+
+
 }
